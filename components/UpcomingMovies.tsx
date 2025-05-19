@@ -43,7 +43,7 @@ const UpcomingMovies = ({ title, data, route }: MovieProp) => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ paddingHorizontal: 15 }}
       >
-        {data.map((item, index) => {
+        {data.slice(0, 5).map((item, index) => {
           return (
             <TouchableWithoutFeedback
               key={index}
@@ -51,7 +51,7 @@ const UpcomingMovies = ({ title, data, route }: MovieProp) => {
                 router.push({
                   pathname: "/Movie",
                   params: {
-                    item: JSON.stringify(item.fullData),
+                    item: JSON.stringify(item),
                   },
                 })
               }

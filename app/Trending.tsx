@@ -1,6 +1,7 @@
 import axios from "axios";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import { FlatList, Image, Pressable, Text, View } from "react-native";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 type item = {
@@ -18,7 +19,7 @@ export default function Trending() {
       .then((res) => setMovies(res.data.results))
       .catch((err) => console.error(err));
   }, []);
-
+  const router = useRouter();
   return (
     <View className="flex-1 bg-neutral-800 p-4">
       <Text className="text-white text-3xl font-bold mb-4">
@@ -28,18 +29,28 @@ export default function Trending() {
         data={movies}
         keyExtractor={(item: item) => item.id.toString()}
         renderItem={({ item }) => (
-          <View className="mb-4">
+          <Pressable
+            className="w-[50%] mb-4 mr-3"
+            onPress={() =>
+              router.push({
+                pathname: "/Movie",
+                params: {
+                  item: JSON.stringify(item),
+                },
+              })
+            }
+          >
             <Image
               source={{
                 uri: `https://image.tmdb.org/t/p/w500${item.poster_path}`,
               }}
               className="w-full h-72 rounded-xl"
-              resizeMode="cover"
+              resizeMode="contain"
             />
-            <Text className="text-white mt-2 text-lg">
+            <Text className="text-white mt-2 text-lg text-center">
               {item.title || item.name}
             </Text>
-          </View>
+          </Pressable>
         )}
       />
     </View>

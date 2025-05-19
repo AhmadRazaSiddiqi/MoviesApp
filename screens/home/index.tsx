@@ -30,7 +30,7 @@ export default () => {
     const fetchTrending = async () => {
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/trending/all/day?language=en-US&api_key=${API_KEY}`
+          `https://api.themoviedb.org/3/trending/movie/day?language=en-US&api_key=${API_KEY}`
         );
         if (response.data.results) {
           setTrending(response.data.results);
