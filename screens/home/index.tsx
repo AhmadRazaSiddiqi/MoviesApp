@@ -1,4 +1,5 @@
 import SearchComp from "@/components/SearchComp";
+import SideBar from "@/components/SideBar";
 import TrendingMovies from "@/components/TrendingMovies";
 import UpcomingMovies from "@/components/UpcomingMovies";
 
@@ -16,13 +17,14 @@ import {
 } from "react-native";
 
 const android = Platform.OS === "android";
-const API_KEY = "ae7bfaed01f966e789c46101e46cbb25"; // ✅ Centralize your API key
+const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
 export default () => {
   const [trending, setTrending] = useState([]);
   const [upcoming, setUpcoming] = useState([]);
   const [topRated, setTopRated] = useState([]);
-  const [showSearch, setShowSearch] = useState(false); // 🔹 Search visibility toggle
+  const [showSearch, setShowSearch] = useState(false);
+  const [showSideBar, setSideBar] = useState(false);
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -74,7 +76,9 @@ export default () => {
       <StatusBar hidden />
       <SafeAreaView className={android ? "mb-2" : "mb-3"}>
         <View className="flex-row justify-between items-center mx-4 mb-2">
-          <Entypo name="menu" size={30} color="white" />
+          <TouchableOpacity onPress={() => setSideBar((prev) => !prev)}>
+            <Entypo name="menu" size={30} color="white" />
+          </TouchableOpacity>
           <Text className="text-white text-4xl font-bold">Movies</Text>
           <TouchableOpacity onPress={() => setShowSearch((prev) => !prev)}>
             <Entypo name="magnifying-glass" size={30} color="white" />
@@ -82,16 +86,35 @@ export default () => {
         </View>
       </SafeAreaView>
 
-      {/* 🔍 Conditionally show search dropdown */}
       {showSearch && (
         <SearchComp apiKey={API_KEY} onClose={() => setShowSearch(false)} />
       )}
 
-      {/* 🎬 Movie content */}
+      {/* Sidebar + Backdrop */}
+      {showSideBar && (
+        <View className="absolute inset-0 z-40">
+          {/* Dark overlay to close sidebar */}
+          <TouchableOpacity
+            className="absolute inset-0 bg-black opacity-50"
+            onPress={() => setSideBar(false)}
+          />
+          {/* Sidebar */}
+          <SideBar onClose={() => setSideBar(false)} />
+        </View>
+      )}
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <TrendingMovies data={trending} />
-        <UpcomingMovies title="Upcoming Movies" data={upcoming} />
-        <UpcomingMovies title="Top Rated Movies" data={topRated} />
+        <UpcomingMovies
+          title="Upcoming Movies"
+          data={upcoming}
+          route="/Upcoming"
+        />
+        <UpcomingMovies
+          title="Top Rated Movies"
+          data={topRated}
+          route="/Toprated"
+        />
       </ScrollView>
     </View>
   );

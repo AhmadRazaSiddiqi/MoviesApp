@@ -43,6 +43,30 @@ export default function RootLayout() {
             animation: "slide_from_right",
           }}
         />
+        <Stack.Screen
+          name="Trending"
+          options={{
+            headerShown: false,
+            presentation: "modal",
+            animation: "slide_from_right",
+          }}
+        />
+        <Stack.Screen
+          name="Upcoming"
+          options={{
+            headerShown: false,
+            presentation: "modal",
+            animation: "slide_from_right",
+          }}
+        />
+        <Stack.Screen
+          name="Toprated"
+          options={{
+            headerShown: false,
+            presentation: "modal",
+            animation: "slide_from_right",
+          }}
+        />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

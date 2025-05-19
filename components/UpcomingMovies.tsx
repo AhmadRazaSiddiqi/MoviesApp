@@ -14,25 +14,25 @@ import {
 type MovieItem = {
   Poster: string;
   Title: string;
-  // Add other properties if needed
   [key: string]: any;
 };
 
 type MovieProp = {
   title: string;
   data: MovieItem[];
+  route: string;
 };
 
 const { height, width } = Dimensions.get("window");
 
-const UpcomingMovies = ({ title, data }: MovieProp) => {
+const UpcomingMovies = ({ title, data, route }: MovieProp) => {
   const router = useRouter();
 
   return (
     <View className="mb-8 space-y-4">
       <View className="mx-4 flex-row justify-between items-center">
         <Text className="text-white text-xl">{title}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => router.push(route)}>
           <Text style={styles.text} className="text-lg">
             All
           </Text>

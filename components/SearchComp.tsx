@@ -21,7 +21,7 @@ export default function SearchComp({ apiKey, onClose }: Props) {
       if (searchQuery.length > 2) {
         searchMovies(searchQuery);
       }
-    }, 500);
+    }, 250);
 
     return () => clearTimeout(delayDebounce);
   }, [searchQuery]);
@@ -69,7 +69,7 @@ export default function SearchComp({ apiKey, onClose }: Props) {
           placeholderTextColor: "#ccc",
           underlineColorAndroid: "transparent",
           style: {
-            color: searchQuery === "" ? "#ccc" : "#fff", // match placeholder when empty
+            color: searchQuery === "" ? "#ccc" : "#fff",
             padding: 12,
             backgroundColor: "#121212",
             borderRadius: 8,
