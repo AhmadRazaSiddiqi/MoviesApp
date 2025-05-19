@@ -27,6 +27,7 @@ export default function Trending() {
       </Text>
       <FlatList
         data={movies}
+        numColumns={2}
         keyExtractor={(item: item) => item.id.toString()}
         renderItem={({ item }) => (
           <Pressable

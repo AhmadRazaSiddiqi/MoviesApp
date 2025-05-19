@@ -5,7 +5,7 @@ import { FlatList, Image, Pressable, Text, View } from "react-native";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
-export default function Trending() {
+export default function Upcoming() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {

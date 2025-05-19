@@ -31,9 +31,9 @@ const UpcomingMovies = ({ title, data, route }: MovieProp) => {
   return (
     <View className="mb-8 space-y-4">
       <View className="mx-4 flex-row justify-between items-center">
-        <Text className="text-white text-xl">{title}</Text>
+        <Text className="text-white text-2xl mb-4">{title}</Text>
         <TouchableOpacity onPress={() => router.push(route)}>
-          <Text style={styles.text} className="text-lg">
+          <Text style={styles.text} className="text-xl mb-3">
             All
           </Text>
         </TouchableOpacity>

@@ -10,7 +10,7 @@ type item = {
   title: string;
   poster_path: string;
 };
-export default function Trending() {
+export default function Toprated() {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
     axios

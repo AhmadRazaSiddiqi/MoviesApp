@@ -25,7 +25,7 @@ interface ParsedItem {
 }
 
 const { width, height } = Dimensions.get("window");
-
+const api_key = process.env.EXPO_PUBLIC_API_KEY;
 const Actors = () => {
   const [castData, setCastData] = useState([]);
   const [ActorDetails, setActorDetails] = useState([]);
@@ -40,7 +40,7 @@ const Actors = () => {
 
       try {
         const creditsRes = await axios.get(
-          `https://api.themoviedb.org/3/person/${parsedItem?.id}/movie_credits?api_key=ae7bfaed01f966e789c46101e46cbb25`
+          `https://api.themoviedb.org/3/person/${parsedItem?.id}/movie_credits?api_key=${api_key}`
         );
 
         if (creditsRes.data) {
@@ -51,7 +51,7 @@ const Actors = () => {
       }
       try {
         const ActorRes = await axios.get(
-          `https://api.themoviedb.org/3/person/${parsedItem?.id}?api_key=ae7bfaed01f966e789c46101e46cbb25`
+          `https://api.themoviedb.org/3/person/${parsedItem?.id}?api_key=${api_key}`
         );
 
         if (ActorRes.data) {
@@ -127,28 +127,6 @@ const Actors = () => {
               {ActorDetails?.place_of_birth || "N/A"}
             </Text>
           </View>
-
-          {/* Genres */}
-          {/* <View style={{ flexDirection: "row", marginBottom: 16 }}>
-            {genres.length > 0 ? (
-              genres.map((genre, index) => (
-                <Text
-                  key={index}
-                  style={{
-                    color: "#bbbbbb",
-                    marginRight: 10,
-                  }}
-                >
-                  {genre}
-                  {index < genres.length - 1 ? " •" : ""}
-                </Text>
-              ))
-            ) : (
-              <Text style={{ color: "#bbbbbb" }}>No genre information</Text>
-            )}
-          </View> */}
-
-          {/* Description/Plot */}
           <Text
             style={{
               color: "#bbbbbb",
@@ -162,41 +140,6 @@ const Actors = () => {
           {/* Cast Section */}
 
           <UpcomingMovies title={"Top Rated Movies"} data={castData} />
-          {/* Director */}
-          {/* <View style={{ marginBottom: 24 }}>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 18,
-                fontWeight: "600",
-                marginBottom: 12,
-              }}
-            >
-              Director
-            </Text>
-            <Text style={{ color: "#bbbbbb" }}>
-              {director?.name || "No director information available"}
-            </Text>
-          </View> */}
-
-          {/* Writers */}
-          {/* <View style={{ marginBottom: 24 }}>
-            <Text
-              style={{
-                color: "white",
-                fontSize: 18,
-                fontWeight: "600",
-                marginBottom: 12,
-              }}
-            >
-              Writers
-            </Text>
-            <Text style={{ color: "#bbbbbb" }}>
-              {writers.length > 0
-                ? writers.map((w) => w.name).join(", ")
-                : "No writer information available"}
-            </Text>
-          </View> */}
         </View>
       </ScrollView>
     </View>

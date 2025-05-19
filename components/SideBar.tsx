@@ -14,13 +14,13 @@ export default function SideBar({ onClose }: sidebarProps) {
         <Text className="text-white mb-3 text-xl">Home</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push("/Trending")}>
-        <Text className="text-white mb-3">Trending Movies</Text>
+        <Text className="text-white mb-3 text-xl">Trending Movies</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push("/Upcoming")}>
-        <Text className="text-white mb-3">Upcoming Movies</Text>
+        <Text className="text-white mb-3 text-xl">Upcoming Movies</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.push("/Toprated")}>
-        <Text className="text-white mb-3">Top Rated Movies</Text>
+        <Text className="text-white mb-3 text-xl">Top Rated Movies</Text>
       </TouchableOpacity>
     </View>
   );

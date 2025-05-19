@@ -33,14 +33,18 @@ const Movies = () => {
   const [crewData, setCrewData] = useState([]);
   const { item } = useLocalSearchParams<{ item?: string }>();
   const parsedItem: ParsedItem | null = item ? JSON.parse(item) : null;
-
+  type crewProps = {
+    job: string;
+    department: string;
+    name: string;
+  };
   useEffect(() => {
     (async () => {
       if (!parsedItem?.id) return;
 
       try {
         const creditsRes = await axios.get(
-          `https://api.themoviedb.org/3/movie/${parsedItem.id}/credits?api_key=ae7bfaed01f966e789c46101e46cbb25`
+          `https://api.themoviedb.org/3/movie/${parsedItem.id}/credits?api_key=${process.env.EXPO_PUBLIC_API_KEY}`
         );
 
         if (creditsRes.data) {
@@ -53,9 +57,12 @@ const Movies = () => {
     })();
   }, [parsedItem?.id]);
 
-  const director = crewData.find((member) => member.job === "Director");
+  const director = crewData.find(
+    (member: crewProps) => member.job === "Director"
+  );
   const writers = crewData.filter(
-    (member) => member.job === "Writer" || member.department === "Writing"
+    (member: crewProps) =>
+      member.job === "Writer" || member.department === "Writing"
   );
 
   const genres = parsedItem?.Genre?.split(", ") || [];
@@ -63,7 +70,6 @@ const Movies = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "#121212" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Poster Image with Gradient */}
         <View style={{ width, height: height * 0.6, position: "relative" }}>
           <Image
             source={{
@@ -87,7 +93,6 @@ const Movies = () => {
             }}
           />
 
-          {/* Top Navigation */}
           <View
             style={{
               flexDirection: "row",
@@ -106,7 +111,6 @@ const Movies = () => {
           </View>
         </View>
 
-        {/* Movie Title and Info */}
         <View style={{ marginTop: -60, paddingHorizontal: 16, zIndex: 2 }}>
           <Text
             style={{
@@ -128,7 +132,6 @@ const Movies = () => {
             </Text>
           </View>
 
-          {/* Genres */}
           <View style={{ flexDirection: "row", marginBottom: 16 }}>
             {genres.length > 0 ? (
               genres.map((genre, index) => (
@@ -148,7 +151,6 @@ const Movies = () => {
             )}
           </View>
 
-          {/* Description/Plot */}
           <Text
             style={{
               color: "#bbbbbb",
@@ -159,7 +161,6 @@ const Movies = () => {
             {parsedItem?.overview || "No plot description available."}
           </Text>
 
-          {/* Cast Section */}
           <Text
             style={{
               color: "white",
@@ -237,7 +238,6 @@ const Movies = () => {
             )}
           </ScrollView>
 
-          {/* Director */}
           <View style={{ marginBottom: 24 }}>
             <Text
               style={{
@@ -254,7 +254,6 @@ const Movies = () => {
             </Text>
           </View>
 
-          {/* Writers */}
           <View style={{ marginBottom: 24 }}>
             <Text
               style={{
