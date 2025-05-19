@@ -87,10 +87,12 @@ export default () => {
       </SafeAreaView>
 
       {showSearch && (
-        <SearchComp apiKey={API_KEY} onClose={() => setShowSearch(false)} />
+        <SearchComp
+          apiKey={API_KEY ?? ""}
+          onClose={() => setShowSearch(false)}
+        />
       )}
 
-      {/* Sidebar + Backdrop */}
       {showSideBar && (
         <View className="absolute inset-0 z-40">
           {/* Dark overlay to close sidebar */}

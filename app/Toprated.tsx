@@ -3,7 +3,12 @@ import { useEffect, useState } from "react";
 import { FlatList, Image, Text, View } from "react-native";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
-
+type item = {
+  id: number;
+  name: string;
+  title: string;
+  poster_path: string;
+};
 export default function Trending() {
   const [movies, setMovies] = useState([]);
   useEffect(() => {
@@ -12,7 +17,12 @@ export default function Trending() {
       .then((res) => setMovies(res.data.results))
       .catch((err) => console.error(err));
   }, []);
-
+  type item = {
+    id: number;
+    title: string;
+    name: string;
+    poster_path: string;
+  };
   return (
     <View className="flex-1 bg-neutral-800 p-4">
       <Text className="text-white text-3xl font-bold mb-4">
@@ -20,7 +30,7 @@ export default function Trending() {
       </Text>
       <FlatList
         data={movies}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item: item) => item.id.toString()}
         renderItem={({ item }) => (
           <View className="mb-4">
             <Image

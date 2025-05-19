@@ -1,8 +1,10 @@
 import { useRouter } from "expo-router";
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-
-export default function SideBar() {
+type sidebarProps = {
+  onClose: () => void;
+};
+export default function SideBar({ onClose }: sidebarProps) {
   const router = useRouter();
   return (
     <View className="absolute left-0 top-0 bottom-0 w-64 bg-neutral-900 z-50 p-4">
