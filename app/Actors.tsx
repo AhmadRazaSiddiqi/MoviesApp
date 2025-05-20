@@ -29,6 +29,7 @@ const api_key = process.env.EXPO_PUBLIC_API_KEY;
 const Actors = () => {
   const [castData, setCastData] = useState([]);
   const [ActorDetails, setActorDetails] = useState([]);
+  const [liked, setliked] = useState(false);
   const { actorData } = useLocalSearchParams<{ actorData?: string }>();
   const parsedItem: ParsedItem | null = actorData
     ? JSON.parse(actorData)
@@ -66,7 +67,6 @@ const Actors = () => {
   return (
     <View style={{ flex: 1, backgroundColor: "#121212" }}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Poster Image with Gradient */}
         <View style={{ width, height: height * 0.6, position: "relative" }}>
           <Image
             source={{
@@ -103,8 +103,16 @@ const Actors = () => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons name="chevron-back" size={28} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons name="heart-outline" size={30} color="white" />
+            <TouchableOpacity
+              onPress={() => {
+                setliked(!liked);
+              }}
+            >
+              {liked ? (
+                <Ionicons name="heart" size={30} color="red" />
+              ) : (
+                <Ionicons name="heart-outline" size={30} color="white" />
+              )}
             </TouchableOpacity>
           </View>
         </View>

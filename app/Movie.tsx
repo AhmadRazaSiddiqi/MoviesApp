@@ -31,6 +31,7 @@ const { width, height } = Dimensions.get("window");
 const Movies = () => {
   const [castData, setCastData] = useState([]);
   const [crewData, setCrewData] = useState([]);
+  const [liked, setliked] = useState(false);
   const { item } = useLocalSearchParams<{ item?: string }>();
   const parsedItem: ParsedItem | null = item ? JSON.parse(item) : null;
   type crewProps = {
@@ -105,8 +106,16 @@ const Movies = () => {
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons name="chevron-back" size={28} color="white" />
             </TouchableOpacity>
-            <TouchableOpacity>
-              <Ionicons name="ellipsis-vertical" size={24} color="white" />
+            <TouchableOpacity
+              onPress={() => {
+                setliked(!liked);
+              }}
+            >
+              {liked ? (
+                <Ionicons name="heart" size={30} color="red" />
+              ) : (
+                <Ionicons name="heart-outline" size={30} color="white" />
+              )}
             </TouchableOpacity>
           </View>
         </View>
