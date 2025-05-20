@@ -111,11 +111,13 @@ export default () => {
           title="Upcoming Movies"
           data={upcoming}
           route="/Upcoming"
+          isActorRoute={false}
         />
         <UpcomingMovies
           title="Top Rated Movies"
           data={topRated}
           route="/Toprated"
+          isActorRoute={false}
         />
       </ScrollView>
     </View>

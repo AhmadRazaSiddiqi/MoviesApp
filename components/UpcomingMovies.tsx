@@ -21,18 +21,35 @@ type MovieProp = {
   title: string;
   data: MovieItem[];
   route: string;
+  isActorRoute: boolean;
+  actorData: {};
 };
 
 const { height, width } = Dimensions.get("window");
 
-const UpcomingMovies = ({ title, data, route }: MovieProp) => {
+const UpcomingMovies = ({
+  title,
+  data,
+  route,
+  isActorRoute,
+  actorData,
+}: MovieProp) => {
   const router = useRouter();
 
   return (
     <View className="mb-8 space-y-4">
       <View className="mx-4 flex-row justify-between items-center">
         <Text className="text-white text-2xl mb-4">{title}</Text>
-        <TouchableOpacity onPress={() => router.push(route)}>
+        <TouchableOpacity
+          onPress={() =>
+            isActorRoute
+              ? router.push({
+                  pathname: route,
+                  params: { actorData: JSON.stringify(actorData) },
+                })
+              : router.push(route)
+          }
+        >
           <Text style={styles.text} className="text-xl mb-3">
             All
           </Text>

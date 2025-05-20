@@ -139,7 +139,13 @@ const Actors = () => {
 
           {/* Cast Section */}
 
-          <UpcomingMovies title={"Top Rated Movies"} data={castData} />
+          <UpcomingMovies
+            title={"Top Rated Movies"}
+            data={castData}
+            actorData={ActorDetails}
+            route={"/ActorMovies"}
+            isActorRoute={true}
+          />
         </View>
       </ScrollView>
     </View>
