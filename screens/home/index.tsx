@@ -100,7 +100,6 @@ export default () => {
             className="absolute inset-0 bg-black opacity-50"
             onPress={() => setSideBar(false)}
           />
-          {/* Sidebar */}
           <SideBar onClose={() => setSideBar(false)} />
         </View>
       )}
