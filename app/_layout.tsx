@@ -9,6 +9,8 @@ import "react-native-reanimated";
 import "../global.css";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useEffect } from "react";
+import { AppState, StatusBar } from "react-native";
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -16,12 +18,24 @@ export default function RootLayout() {
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
 
+  useEffect(() => {
+    StatusBar.setHidden(true, "fade");
+    const sub = AppState.addEventListener("change", (state) => {
+      if (state === "active") {
+        StatusBar.setHidden(true, "fade");
+      }
+    });
+
+    return () => sub.remove();
+  }, []);
+
   if (!loaded) {
     return null;
   }
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <StatusBar hidden />
       <Stack>
         <Stack.Screen
           name="(tabs)"
