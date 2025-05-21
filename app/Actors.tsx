@@ -26,15 +26,19 @@ interface ParsedItem {
 
 const { width, height } = Dimensions.get("window");
 const api_key = process.env.EXPO_PUBLIC_API_KEY;
+
 const Actors = () => {
   const [castData, setCastData] = useState([]);
-  const [ActorDetails, setActorDetails] = useState([]);
+  const [ActorDetails, setActorDetails] = useState<any>({});
   const [liked, setliked] = useState(false);
+  const [showFullBio, setShowFullBio] = useState(false);
+
   const { actorData } = useLocalSearchParams<{ actorData?: string }>();
   const parsedItem: ParsedItem | null = actorData
     ? JSON.parse(actorData)
     : null;
   const navigation = useNavigation();
+
   useEffect(() => {
     (async () => {
       if (!parsedItem?.id) return;
@@ -50,6 +54,7 @@ const Actors = () => {
       } catch (error) {
         console.error("Error fetching credits:", error);
       }
+
       try {
         const ActorRes = await axios.get(
           `https://api.themoviedb.org/3/person/${parsedItem?.id}?api_key=${api_key}`
@@ -59,10 +64,18 @@ const Actors = () => {
           setActorDetails(ActorRes.data);
         }
       } catch (error) {
-        console.error("Error fetching credits:", error);
+        console.error("Error fetching actor details:", error);
       }
     })();
   }, [parsedItem?.id]);
+
+  // Biography truncation logic
+  const bio = ActorDetails?.biography || "";
+  const bioWords = bio.split(" ");
+  const isLongBio = bioWords.length > 50;
+  const displayedBio = showFullBio
+    ? bio
+    : bioWords.slice(0, 50).join(" ") + (isLongBio ? "..." : "");
 
   return (
     <View style={{ flex: 1, backgroundColor: "#121212" }}>
@@ -135,18 +148,27 @@ const Actors = () => {
               {ActorDetails?.place_of_birth || "N/A"}
             </Text>
           </View>
+
+          {/* Biography with Read More */}
           <Text
             style={{
               color: "#bbbbbb",
               lineHeight: 22,
-              marginBottom: 24,
+              marginBottom: isLongBio ? 8 : 24,
             }}
           >
-            {ActorDetails?.biography || "No Biography available."}
+            {displayedBio}
           </Text>
 
-          {/* Cast Section */}
+          {isLongBio && (
+            <TouchableOpacity onPress={() => setShowFullBio(!showFullBio)}>
+              <Text style={{ color: "#00baff", marginBottom: 24 }}>
+                {showFullBio ? "Read Less" : "Read More"}
+              </Text>
+            </TouchableOpacity>
+          )}
 
+          {/* Cast Section */}
           <UpcomingMovies
             title={"Top Rated Movies"}
             data={castData}

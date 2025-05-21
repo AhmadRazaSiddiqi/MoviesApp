@@ -31,6 +31,7 @@ const { width, height } = Dimensions.get("window");
 const Movies = () => {
   const [castData, setCastData] = useState([]);
   const [crewData, setCrewData] = useState([]);
+  const [genreList, setgenreList] = useState([]);
   const [liked, setliked] = useState(false);
   const { item } = useLocalSearchParams<{ item?: string }>();
   const parsedItem: ParsedItem | null = item ? JSON.parse(item) : null;
@@ -47,17 +48,20 @@ const Movies = () => {
         const creditsRes = await axios.get(
           `https://api.themoviedb.org/3/movie/${parsedItem.id}/credits?api_key=${process.env.EXPO_PUBLIC_API_KEY}`
         );
+        const GenreList = await axios.get(
+          `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.EXPO_PUBLIC_API_KEY}`
+        );
 
         if (creditsRes.data) {
           setCastData(creditsRes.data.cast);
           setCrewData(creditsRes.data.crew);
+          setgenreList(GenreList.data.genres);
         }
       } catch (error) {
         console.error("Error fetching credits:", error);
       }
     })();
   }, [parsedItem?.id]);
-
   const director = crewData.find(
     (member: crewProps) => member.job === "Director"
   );
@@ -66,7 +70,8 @@ const Movies = () => {
       member.job === "Writer" || member.department === "Writing"
   );
 
-  const genres = parsedItem?.Genre?.split(", ") || [];
+  const genres = parsedItem?.genre_ids || [];
+
   const navigation = useNavigation();
   return (
     <View style={{ flex: 1, backgroundColor: "#121212" }}>
@@ -136,25 +141,28 @@ const Movies = () => {
             <Text style={{ color: "#bbbbbb", marginRight: 12 }}>
               Released • {parsedItem?.release_date || "N/A"}
             </Text>
-            <Text style={{ color: "#bbbbbb" }}>
-              {parsedItem?.Runtime || "N/A"}
+            <Text style={{ color: "#FFD700", fontWeight: "bold" }}>
+              {parsedItem?.vote_average.toFixed(1) || "N/A"}
             </Text>
           </View>
 
           <View style={{ flexDirection: "row", marginBottom: 16 }}>
             {genres.length > 0 ? (
-              genres.map((genre, index) => (
-                <Text
-                  key={index}
-                  style={{
-                    color: "#bbbbbb",
-                    marginRight: 10,
-                  }}
-                >
-                  {genre}
-                  {index < genres.length - 1 ? " •" : ""}
-                </Text>
-              ))
+              genres.map((genre, index) => {
+                const match = genreList.find((el) => el.id === genre);
+                return (
+                  <Text
+                    key={index}
+                    style={{
+                      color: "#bbbbbb",
+                      marginRight: 10,
+                    }}
+                  >
+                    {match?.name}
+                    {index < genres.length - 1 ? " •" : ""}
+                  </Text>
+                );
+              })
             ) : (
               <Text style={{ color: "#bbbbbb" }}>No genre information</Text>
             )}
