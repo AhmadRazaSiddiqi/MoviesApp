@@ -19,10 +19,10 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
 # Screen Shots
 
 <div align="center">
-<image src="assets\20250521_224404_Homepage.png" style="height: 350px; width: auto; object-fit: cover;margin-bottom:10px;margin-right:30px" />
-<image src="assets\20250521_224757_Movie.png" style="height: 350px; width: auto; object-fit: cover;margin-bottom:10px"/>
-<image src="assets\20250521_224809_Actor.png" style="height: 350px; width: auto; object-fit: cover;margin-right:30px" />
-<image src="assets\20250521_224820_ActorMovies.png"  style="height: 350px; width: auto; object-fit: cover; margin-top:20px"/>
+<image src="assets\images\HOME.png" style="height: 350px; width: auto; object-fit: cover;margin-bottom:10px;margin-right:30px" />
+<image src="assets\images\MOVIE.png" style="height: 350px; width: auto; object-fit: cover;margin-bottom:10px"/>
+<image src="assets\images\ACTOR.png" style="height: 350px; width: auto; object-fit: cover;margin-right:30px" />
+<image src="assets\images\TRENDING.png"  style="height: 350px; width: auto; object-fit: cover; margin-top:20px"/>
 
 </div>
 
