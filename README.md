@@ -1,4 +1,4 @@
-# Welcome to your Expo app 👋
+# Movies App 🎬
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
@@ -16,14 +16,15 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+# Screen Shots
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+<div align="center">
+<image src="assets\20250521_224404_Homepage.png" style="height: 350px; width: auto; object-fit: cover;margin-bottom:10px;margin-right:30px" />
+<image src="assets\20250521_224757_Movie.png" style="height: 350px; width: auto; object-fit: cover;margin-bottom:10px"/>
+<image src="assets\20250521_224809_Actor.png" style="height: 350px; width: auto; object-fit: cover;margin-right:30px" />
+<image src="assets\20250521_224820_ActorMovies.png"  style="height: 350px; width: auto; object-fit: cover; margin-top:20px"/>
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+</div>
 
 ## Get a fresh project
 
@@ -39,7 +40,7 @@ This command will move the starter code to the **app-example** directory and cre
 
 To learn more about developing your project with Expo, look at the following resources:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
+- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our[guides](https://docs.expo.dev/guides).
 - [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
 
 ## Join the community
